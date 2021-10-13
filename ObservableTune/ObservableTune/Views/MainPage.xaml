@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ObservableTune.Views.MainPage"
+             Title="{Binding Title}"
+             xmlns:prism="http://prismlibrary.com" xmlns:viewmodels="clr-namespace:ObservableTune.ViewModels"
+             x:DataType="viewmodels:MainPageViewModel">
+    <StackLayout>
+    <Label Text="Sélectionner un strategie de chargement" TextColor="Green" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+    <Picker  SelectedItem="{Binding SelectedAppearStrategy}" ItemsSource="{Binding AppearStrategy}"></Picker>
+    
+    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <Button Command="{prism:NavigateTo 'NavigationPage/ObsList1Page'}" CommandParameter="{Binding SelectedAppearStrategy}" Text="ObsList1 ListView"></Button>
+        <Button Command="{prism:NavigateTo 'NavigationPage/ObsList2Page'}" CommandParameter="{Binding SelectedAppearStrategy}" Text="ObsList2 Bindable Layout"></Button>
+        <Button Command="{prism:NavigateTo 'NavigationPage/ObsListComplexUiPage'}" CommandParameter="{Binding SelectedAppearStrategy}" Text="Complex UI"></Button>
+
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

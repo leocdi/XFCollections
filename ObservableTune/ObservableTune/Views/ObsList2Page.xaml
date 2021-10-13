@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" xmlns:models="clr-namespace:ObservableTune.Models" xmlns:viewmodels="clr-namespace:ObservableTune.ViewModels" x:DataType="viewmodels:ObsList2PageViewModel"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ObservableTune.Views.ObsList2Page">
+    <StackLayout>
+
+        <Label Text="Bindable Layout"></Label>
+        <Label Text="{Binding Time, StringFormat='Loaded in {0} ms'}" TextColor="Black"></Label>
+        <ScrollView>
+            
+        <StackLayout BindableLayout.ItemsSource="{Binding Items}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:Customer">
+                 
+                        <StackLayout>
+                            <Label Text="{Binding Name}"></Label>
+                            <Label Text="{Binding Address}"></Label>
+                        </StackLayout>
+               
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

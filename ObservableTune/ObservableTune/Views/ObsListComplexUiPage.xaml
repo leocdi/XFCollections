@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" xmlns:models="clr-namespace:ObservableTune.Models" xmlns:viewmodels="clr-namespace:ObservableTune.ViewModels" x:DataType="viewmodels:ObsListComplexUiPageViewModel"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ObservableTune.Views.ObsListComplexUiPage">
+    <StackLayout>
+
+        <Label Text="Bindable Layout"></Label>
+        <Label Text="{Binding Time, StringFormat='Loaded in {0} ms'}" TextColor="Black"></Label>
+
+            <ListView ItemsSource="{Binding Items}" HasUnevenRows="True" >
+            <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Customer">
+                        <ViewCell>
+                        <StackLayout BackgroundColor="Bisque"  >
+                            <Label Text="{Binding Name}"></Label>
+                            <Label Text="{Binding Address}"></Label>
+                            <ListView ItemsSource="{Binding OrdersObs}" CachingStrategy="RecycleElementAndDataTemplate" RowHeight="50" VerticalOptions="Start" BackgroundColor="Aqua" >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Order">
+                                        <TextCell Text="{Binding Date}">
+
+                                        </TextCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </ViewCell>
+                  
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+    </StackLayout>
+</ContentPage>
