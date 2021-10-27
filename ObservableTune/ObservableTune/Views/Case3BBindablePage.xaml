@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit" xmlns:controls="clr-namespace:ObservableTune.Controls" xmlns:models="clr-namespace:ObservableTune.Models"
+             x:Class="ObservableTune.Views.Case3BBindablePage">
+
+    <StackLayout CompressedLayout.IsHeadless="true">
+        <ProgressBar ProgressColor="{StaticResource ColorValid}" Progress="{Binding ProgressReport.Current}" HeightRequest="3" />
+        <!--<controls:FilterBar Orientation="Horizontal" 
+                            TextChangedCommand="{Binding FilterTextChangedCommand}"
+                            ToggleCommand="{Binding ToggleCommand}"
+                            ToggleState="{Binding SearchFilter.AfficherTermine}"
+                            SearchText="{Binding SearchFilter.SearchText}"/>-->
+        <Label Text="BindableLayout view"></Label>
+        <Label Text="{Binding Time, StringFormat='Loaded in {0} ms'}" TextColor="Black"></Label>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}" RefreshColor="Teal">
+            <ScrollView>
+            <StackLayout Margin="0"   BindableLayout.ItemsSource ="{Binding Items}"  x:Name="LstTransfert"  >
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:Customer">
+
+                        <toolkit:Expander IsExpanded="false" >
+                            <toolkit:Expander.Header>
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems Mode="Execute">
+                                            <SwipeItem Text="Tout valider" 
+                                                           BackgroundColor="{StaticResource ColorValid}"
+                                                           Command="{Binding Path=BindingContext.ValiderDetailCompletCommand, Source={x:Reference Name=LstTransfert}}"
+                                                           CommandParameter="{Binding}">
+                                                <!--<SwipeItem.IconImageSource>
+                                                        <FontImageSource    FontFamily="{DynamicResource MaterialFontFamily}"
+                                                                    Glyph="{StaticResource Check}"/>
+                                                    </SwipeItem.IconImageSource>-->
+                                            </SwipeItem>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <Grid Padding="0,0,0,0" RowSpacing="0" ColumnSpacing="0" BackgroundColor="White" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="25"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1"/>
+                                            <RowDefinition Height="60"/>
+                                        </Grid.RowDefinitions>
+                                        <BoxView 
+                                                 Grid.ColumnSpan="3"
+                                                 HeightRequest="1"
+                                                 />
+                                        <BoxView Grid.Row="1" Grid.Column="0"   BackgroundColor="Bisque"/>
+
+                                        <StackLayout Grid.Row="1"  Margin="3" Grid.Column="1" CompressedLayout.IsHeadless="true">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition  Width="80"/>
+                                                    <ColumnDefinition  Width="*"/>
+                                                    <ColumnDefinition Width="90" />
+                                                    <ColumnDefinition Width="55"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Label LineBreakMode="NoWrap" Text="{Binding ContactName}"  FontAttributes="Bold" Grid.ColumnSpan="2" TextColor="{StaticResource ColorPrimaryDark}"/>
+                                                <Label LineBreakMode="NoWrap" Text="{Binding City, StringFormat='({0})'}" FontSize="Micro" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" TextColor="{StaticResource ColorPrimary}"  />
+                                                <!--<Label LineBreakMode="NoWrap" HorizontalTextAlignment="Center" Text="{Binding QuantiteUnite, StringFormat='({0}U)'}" TextColor="{StaticResource ColorPrimary}" Grid.Row="0" Grid.Column="3"/>-->
+                                                <Label Text="{Binding Address}" FontAttributes="Italic" FontSize="Micro" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" LineBreakMode="TailTruncation"/>
+
+
+                                                <Label LineBreakMode="NoWrap" Grid.Row="1" FontSize="16" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="End"  TextColor="{StaticResource ColorPrimaryDark}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding Id}" FontSize="16" FontAttributes="Bold"/>
+                                                            <Span Text="/"></Span>
+                                                            <Span Text="{Binding Phone}" TextColor="{StaticResource ColorPrimary}"/>
+                                                            <Span Text="{Binding Country, StringFormat=' ({0}U)'}" TextColor="{StaticResource ColorPrimary}"></Span>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                            </Grid>
+                                        </StackLayout>
+                                    </Grid>
+                                </SwipeView>
+                                <!--</ViewCell>-->
+                            </toolkit:Expander.Header>
+                            <toolkit:Expander.ContentTemplate>
+                                <DataTemplate>
+
+                                    <!--Lignes transfert enfant-->
+
+                                    <ListView  ItemsSource="{Binding OrdersObs}" SeparatorColor="{StaticResource ColorPrimaryDark}" x:Name="LstTransfertEnfants" CachingStrategy="RecycleElementAndDataTemplate" RowHeight="50">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:Order">
+                                                <ViewCell>
+                                                    <SwipeView BackgroundColor="White">
+                                                        <SwipeView.LeftItems>
+                                                            <SwipeItems SwipeBehaviorOnInvoked="Close" Mode="Execute">
+                                                                <SwipeItem  Text="Valider"
+                                                                    BackgroundColor="{StaticResource ColorValid}"
+                                                                Command="{Binding Path=BindingContext.ValiderTransfertCommand, Source={x:Reference Name=LstTransfert}}"
+                                                                CommandParameter="{Binding}">
+
+                                                                </SwipeItem>
+                                                            </SwipeItems>
+                                                        </SwipeView.LeftItems>
+                                                        <SwipeView.RightItems>
+                                                            <SwipeItems SwipeBehaviorOnInvoked="RemainOpen">
+                                                                <SwipeItem  Text="Modifier"
+                                                                        BackgroundColor="{StaticResource ColorEdit}"
+                                                                        Command="{Binding Path=BindingContext.ModifierTransfertCommand, Source={x:Reference Name=LstTransfert}}"
+                                                                        CommandParameter="{Binding}">
+                                                                </SwipeItem>
+                                                            </SwipeItems>
+                                                        </SwipeView.RightItems>
+                                                        <Grid Padding="25,0,10,4" BackgroundColor="Pink" >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="85"/>
+                                                            </Grid.ColumnDefinitions>
+
+
+                                                            <Label VerticalTextAlignment="Center"  Text="{Binding Id, StringFormat='Vers {0}'}" FontAttributes="Bold"/>
+
+                                                            <Label LineBreakMode="NoWrap" VerticalTextAlignment="Center" FontSize="17" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" >
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="Qté. "></Span>
+                                                                        <!--<Span>
+                                                                                <MultiBinding Converter="{converters:QuantiteDiviseQteUniteConverter}">
+                                                                                    <Binding Path=".QteTransferee" />
+                                                                                    <Binding Path=".QteUnite" />
+                                                                                </MultiBinding>
+                                                                            </Span>-->
+                                                                        <Span Text="/"></Span>
+                                                                        <!--<Span>
+                                                                                <MultiBinding Converter="{converters:QuantiteDiviseQteUniteConverter}">
+                                                                                    <Binding Path=".QteAttendue" />
+                                                                                    <Binding Path=".QteUnite" />
+                                                                                </MultiBinding>
+                                                                            </Span>-->
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+
+                                                        </Grid>
+                                                    </SwipeView>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </DataTemplate>
+
+                                <!--Fin Lignes transfert enfant-->
+                            </toolkit:Expander.ContentTemplate>
+                        </toolkit:Expander>
+
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+        </RefreshView>
+
+        <!--<StackLayout Orientation="Horizontal"  HorizontalOptions="EndAndExpand" MinimumHeightRequest="60" HeightRequest="60" Margin="0,0,3,3">-->
+        <Grid Margin="6"  MinimumHeightRequest="60">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Frame Margin="0,0,0,10" IsVisible="{Binding RangementItem.Article, Converter={toolkit:IsNotNullOrEmptyConverter}}" CornerRadius="10" BackgroundColor="{StaticResource ColorTurquoise}" HorizontalOptions="CenterAndExpand" VerticalOptions="End" HasShadow="True" Padding="3" >
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RemoveRangementArticleCommand}"/>
+                </Frame.GestureRecognizers>
+                <StackLayout Orientation="Horizontal">
+                    <!--<Image IsVisible="true">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Glyph="{StaticResource Backspace }"
+                                Size="25"
+                                Color="{StaticResource ColorPrimaryLight}" />
+                        </Image.Source>
+                    </Image>-->
+                    <Label Text ="{Binding RangementItem.Article.ReferenceExterne}" FontSize="Micro" TextColor="White"  HorizontalOptions="End"
+                           VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding RangementItem.Article.ReferenceExterne}"/>
+                                <Span Text="{Binding RangementItem.Multiplicateur, StringFormat=' x{0}'}" FontAttributes="Bold" TextColor="{StaticResource ColorAccentLight}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Column="1" Margin="0,0,0,10" IsVisible="{Binding RangementItem.Emplacement, Converter={toolkit:IsNotNullOrEmptyConverter}}" CornerRadius="10" BackgroundColor="{StaticResource ColorAccentComplement}" HorizontalOptions="CenterAndExpand" VerticalOptions="End" HasShadow="True" Padding="3" >
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RemoveRangementEmplacementCommand}"/>
+                </Frame.GestureRecognizers>
+                <StackLayout Orientation="Horizontal">
+                    <!--<Image IsVisible="true">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Glyph="{StaticResource Backspace }"
+                                Size="25"
+                                Color="{StaticResource ColorPrimaryLight}" />
+                        </Image.Source>
+                    </Image>-->
+                    <Label Text ="{Binding RangementItem.Emplacement.Libelle}" FontSize="Micro" TextColor="White"  HorizontalOptions="End"
+                           VerticalOptions="Center" />
+                </StackLayout>
+            </Frame>
+            <controls:CircleButton                                    WidthRequest="55"
+                                   HorizontalOptions="EndAndExpand"
+                                   Command="{Binding NouveauRangementCommand}"
+                                   Text="A"
+                                   Grid.Column="2"/>
+            <controls:CircleButton                                        IsEnabled="{Binding CanValidateOperation}" 
+                                       WidthRequest="60"
+                                       HorizontalOptions="EndAndExpand"
+                                       Command="{Binding ValiderOperationCommand}"
+                                       Text="B"
+                                       Grid.Column="3"/>
+        </Grid>
+
+        <!--</StackLayout>-->
+    </StackLayout>
+</ContentPage>

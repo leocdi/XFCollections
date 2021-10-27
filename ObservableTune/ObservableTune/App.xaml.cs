@@ -31,6 +31,8 @@ namespace ObservableTune
             containerRegistry.RegisterForNavigation<ObsList1Page, ObsList1PageViewModel>();
             containerRegistry.RegisterForNavigation<ObsList2Page, ObsList2PageViewModel>();
             containerRegistry.RegisterForNavigation<ObsListComplexUiPage, ObsListComplexUiPageViewModel>();
+            containerRegistry.RegisterForNavigation<Case3BPage, Case3BPageViewModel>();
+            containerRegistry.RegisterForNavigation<Case3BBindablePage, Case3BPageViewModel>();
         }
     }
 }

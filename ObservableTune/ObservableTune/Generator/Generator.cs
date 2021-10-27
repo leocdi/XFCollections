@@ -27,7 +27,7 @@ namespace ObservableTune
                 .RuleFor(c => c.Email, f => f.Internet.Email())
                 .RuleFor(c => c.ContactName, (f, c) => f.Name.FullName())
                 .RuleFor(c => c.Orders, f => ordergenerator.Generate(f.Random.Number(10)));
-            return customerGenerator.Generate(200);
+            return customerGenerator.Generate(140);
         }
     }
 }

@@ -6,6 +6,34 @@
   <Application.Resources>
 
     <!-- Application resource dictionary -->
+        <Color x:Key="AccentColor">#EE9427</Color>
+        <Color x:Key="ColorPrimary">#9B9C9C</Color>
+        <Color x:Key="ColorPrimaryDark">#525252</Color>
+        <Color x:Key="ColorPrimaryLight">#C2C2C2</Color>
+        <Color x:Key="ColorAccentLight">#ebc167</Color>
+        <Color x:Key="ColorAccentExtraLight">#ffe9b5</Color>
+        <Color x:Key="ColorAccentDark">#e0881d</Color>
+        <Color x:Key="ColorAccentDarkest">#d17e19</Color>
+        <Color x:Key="ColorInvalid">Red</Color>
+        <Color x:Key="ColorValid">#4caf50</Color>
+        <Color x:Key="ColorValidLight">#ccff90</Color>
+        <Color x:Key="ColorValidExtraLight">#e7f9d2</Color>
+        <Color x:Key="ColorEdit">#f97b49</Color>
+        <Color x:Key="ColorEditLight">#FFA07A</Color>
+        <Color x:Key="ColorEditExtraLight">#f9d9cd</Color>
+        <Color x:Key="ColorTurquoise">#027878</Color>
+        <Color x:Key="ColorTurquoiseLight">#2cbfbf</Color>
+        <Color x:Key="ColorAccentComplement">#4c2bf0</Color>
+        <Color x:Key="ColorExtraLight">WhiteSmoke</Color>
 
-  </Application.Resources>
+        <!--- Btn Dialog Keys -->
+        <Color x:Key="ColorTransparentTurquoise">#33027878</Color>
+        <Color x:Key="ColorTransparentPrimary">#339B9C9C</Color>
+
+        <Color x:Key="ColorTransparentDark">#77000000</Color>
+        <Color x:Key="ColorTransparentDarkLight">#44000000</Color>
+        <Color x:Key="ColorTransparentWhite">#88FFFFFF</Color>
+        <Color x:Key="ColorTransparentWhiteLight">#CCFFFFFF</Color>
+
+    </Application.Resources>
 </prism:PrismApplication>
